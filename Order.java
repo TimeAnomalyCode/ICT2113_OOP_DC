@@ -1,4 +1,5 @@
 import java.text.DateFormat;
+import java.util.Locale;
 import java.util.Scanner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,21 +16,33 @@ public class Order {
     }
 
     public void createOrder(){
-        if(counter < 10){
-            m_orderId = "OID000" + counter;
-        }
-        else if (counter < 100) {
-            m_orderId = "OID00" + counter;
-        }
-        else if (counter < 1000) {
-            m_orderId = "OID0" + counter;
-        }
-        else{
-            m_orderId = "OID" + counter;
-        }
-        counter++;
+        Item it;
+        String productId;
+        int weigth;
 
-        m_orderDate = verifyDate();
+        m_orderId = generateValidOID();
+        System.out.println("OID: " + m_orderId);
+        m_orderDate = enterDate();
+
+        //Please convert this to do while
+        productId = enterProductId();
+        weigth = enterWeight();
+        it = new Item(productId, weigth);
+        m_items[counter - 2] = it;
+        System.out.println("Product Added to " + m_orderId);
+
+        while (true){
+            if(enterMoreItems()){
+                productId = enterProductId();
+                weigth = enterWeight();
+                it = new Item(productId, weigth);
+                m_items[counter - 2] = it;
+                System.out.println("Product Added to " + m_orderId);
+            }
+            else {
+                break;
+            }
+        }
     }
 
     public void saveOrder(){
@@ -40,7 +53,27 @@ public class Order {
 
     }
 
-    private String verifyDate(){
+    private String generateValidOID(){
+        String orderId;
+
+        if(counter < 10){
+            orderId = "OID000" + counter;
+        }
+        else if (counter < 100) {
+            orderId = "OID00" + counter;
+        }
+        else if (counter < 1000) {
+            orderId = "OID0" + counter;
+        }
+        else{
+            orderId = "OID" + counter;
+        }
+        counter++;
+
+        return orderId;
+    }
+
+    private String enterDate(){
         Scanner sc = new Scanner(System.in);
         String date;
 
@@ -69,22 +102,21 @@ public class Order {
         return true;
     }
 
-    private void enterProductIdWeight(){
+    private String enterProductId(){
         Scanner sc = new Scanner(System.in);
-        Item it;
-        String input,productId;
-        int weight;
+        String productId;
 
         do{
-            System.out.println("Enter Product ID(Eg.WC001): ");
+            System.out.print("Enter Product ID(Eg.WC001): ");
             productId = sc.nextLine();
-            System.out.println("Enter Weight(Eg.10): ");
-            weight = sc.nextInt();
 
-            System.out.println("Do you want to enter more items(Y/N): ");
-            input = sc.nextLine();
+            if(!isValidProductId(productId)){
+                System.out.println("Invalid ID");
+            }
 
-        } while (input == "Y");
+        } while(!isValidProductId(productId));
+
+        return productId;
     }
 
     private boolean isValidProductId(String id){
@@ -94,6 +126,78 @@ public class Order {
             return false;
         }
         return true;
+    }
+
+    private int enterWeight(){
+        Scanner sc = new Scanner(System.in);
+        String inputWeight;
+        int weight;
+
+        do{
+            System.out.print("Enter Weight(Eg.10): ");
+            inputWeight = sc.nextLine();
+
+            if(!isValidWeight(inputWeight)){
+                System.out.println("Invalid Weight");
+            }
+
+        } while (!isValidWeight(inputWeight));
+
+        weight = Integer.parseInt(inputWeight);
+        return weight;
+    }
+
+    private boolean isValidWeight(String input){
+        int weight;
+
+        try {
+            weight = Integer.parseInt(input);
+            if(weight < 0){
+                return false;
+            }
+            return true;
+
+        } catch (Exception ex){
+            return false;
+        }
+    }
+
+    private boolean enterMoreItems(){
+        Scanner sc = new Scanner(System.in);
+        String input = "N";
+        while (true){
+            System.out.print("Do you want to enter more items(Y/N): ");
+            input = sc.nextLine();
+
+            if(isValidMoreItems(input) == 0) {
+                System.out.println(isValidMoreItems(input));
+                System.out.println("Invalid Answer");
+                continue;
+            }
+            else {
+                break;
+            }
+        }
+
+        if (isValidMoreItems(input) == -1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private int isValidMoreItems(String input){
+        input.toUpperCase();
+
+        if(input.equals("Y") || input.equals("YES")){
+            return 1;
+        }
+        else if(input.equals("N") || input.equals("NO")){
+            return -1;
+        }
+        else {
+            return 0;
+        }
     }
 }
 
