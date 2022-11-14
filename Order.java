@@ -42,20 +42,10 @@ public class Order {
     }
 
     private String generateValidOID(){
+        int num = 10000 + counter;
         String orderId;
 
-        if(counter < 10){
-            orderId = "OID000" + counter;
-        }
-        else if (counter < 100) {
-            orderId = "OID00" + counter;
-        }
-        else if (counter < 1000) {
-            orderId = "OID0" + counter;
-        }
-        else{
-            orderId = "OID" + counter;
-        }
+        orderId = "S" + num;
         counter++;
 
         return orderId;

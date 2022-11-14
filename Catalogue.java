@@ -10,7 +10,7 @@ public class Catalogue {
         for(int i = 0; i < 100; i++){
             if(m_products[i] == null){
                 m_products[i] = p;
-                System.out.println("Product Added");
+                System.out.println("Product Added to Catalogue");
                 break;
             }
         }
