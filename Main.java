@@ -4,19 +4,15 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String args[]) {
+     
+        Validate checker = new Validate();
         int option;
         boolean inrange = false;
 
         while (true) {
-            System.out.print("\n1.New Order\n"
-                    + "2.View Order Maintenance\n"
-                    + "3. Exit\n"
-                    + "Enter your option : ");
-
-            Scanner sc = new Scanner(System.in);
-            option = enter_option(sc);
+            option = checker.main_enter_option();
             select_option(option);
-
+            
         }
     }
 
@@ -41,40 +37,15 @@ public class Main {
     /* other functions
     ----------------------------------------------------------------------------
      */
-    // prompt user to input option and check if it's integer
-    public static int enter_option(Scanner sc) {
-        int option = 0;
-        boolean inrange = false;
-
-        try {
-            option = sc.nextInt();
-            inrange = validate_input(option);
-            if (!inrange) {
-                System.out.println("Invalid input please enter another option\n");
-            }
-        } catch (Exception e) {
-            System.out.println("Invalid input please enter another option\n");
-        }
-        return option;
-    }
-
-    // check if option is inrange of 1-3
-    public static boolean validate_input(int option) {
-        boolean inrange = false;
-        if (option > 0 && option < 4) {
-            inrange = true;
-        }
-        return inrange;
-    }
 
     // check option to take action
     public static void select_option(int option) {
         switch (option) {
             case 1 -> {
-                System.out.println("New Order");
+                System.out.println("New Order\n");
             }
             case 2 -> {
-                System.out.println("View Order Maintenance");
+                System.out.println("View Order Maintenance\n");
             }
             case 3 -> {
                 System.out.println("Terminating program...");
