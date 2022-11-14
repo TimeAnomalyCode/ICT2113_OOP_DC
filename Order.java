@@ -24,25 +24,13 @@ public class Order {
         System.out.println("OID: " + m_orderId);
         m_orderDate = enterDate();
 
-        //Please convert this to do while
-        productId = enterProductId();
-        weigth = enterWeight();
-        it = new Item(productId, weigth);
-        m_items[counter - 2] = it;
-        System.out.println("Product Added to " + m_orderId);
-
-        while (true){
-            if(enterMoreItems()){
-                productId = enterProductId();
-                weigth = enterWeight();
-                it = new Item(productId, weigth);
-                m_items[counter - 2] = it;
-                System.out.println("Product Added to " + m_orderId);
-            }
-            else {
-                break;
-            }
-        }
+        do {
+            productId = enterProductId();
+            weigth = enterWeight();
+            it = new Item(productId, weigth);
+            m_items[counter - 2] = it;
+            System.out.println(productId + " Added to " + m_orderId);
+        } while (enterMoreItems());
     }
 
     public void saveOrder(){
