@@ -12,5 +12,6 @@ public class Test {
         ctl.addProducts(p2);
         od.createOrder();
 
+        od.printOrder("S10001");
     }
 }

@@ -4,32 +4,35 @@ import java.util.Scanner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 public class Order {
-    private String m_orderId;
-    private String m_orderDate;
+    private String[] m_orderId;
+    private String[] m_orderDate;
     private Item[] m_items;
-    private static int counter = 1;
+    private static int m_counter = 1;
     private Catalogue m_ctl;
+    private int m_numOfItems = 0;
 
     Order(Catalogue ctl){
         m_items = new Item[100];
+        m_orderId = new String[100];
+        m_orderDate = new String[100];
         m_ctl = ctl;
     }
 
     public void createOrder(){
         Item it;
         String productId;
-        int weigth;
+        int weight;
 
-        m_orderId = generateValidOID();
-        System.out.println("OID: " + m_orderId);
-        m_orderDate = enterDate();
+        m_orderId[m_counter - 1] = generateValidOID();
+        System.out.println("OID: " + m_orderId[m_counter - 2]);
+        m_orderDate[m_counter - 2] = enterDate();
 
         do {
             productId = enterProductId();
-            weigth = enterWeight();
-            it = new Item(productId, weigth);
-            m_items[counter - 2] = it;
-            System.out.println(productId + " Added to " + m_orderId);
+            weight = enterWeight();
+            it = new Item(productId, weight);
+            m_items[m_numOfItems++] = it;
+            System.out.println(productId + " Added to " + m_orderId[m_counter - 2]);
         } while (enterMoreItems());
     }
 
@@ -37,16 +40,24 @@ public class Order {
 
     }
 
-    public void printOrder(){
-
+    public void printOrder(String orderId){
+        for(int i = 0; i < 100; i++){
+            if(orderId.equals(m_orderId[i])){
+                System.out.println("OID: " + m_orderId[i]);
+                System.out.println("Date: " + m_orderDate[i]);
+                for(int j = 0; j < m_numOfItems; j++){
+                    System.out.println("Items: " + m_items[j].getProductId());
+                }
+            }
+        }
     }
 
     private String generateValidOID(){
-        int num = 10000 + counter;
+        int num = 10000 + m_counter;
         String orderId;
 
         orderId = "S" + num;
-        counter++;
+        m_counter++;
 
         return orderId;
     }
