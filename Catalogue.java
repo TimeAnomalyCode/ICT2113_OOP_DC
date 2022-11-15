@@ -10,7 +10,7 @@ public class Catalogue {
         for(int i = 0; i < 100; i++){
             if(m_products[i] == null){
                 m_products[i] = p;
-                System.out.println(m_products[i].getId() + " Added to Catalogue");
+                System.out.println(m_products[i].getProductId() + " Added to Catalogue");
                 break;
             }
         }
@@ -18,7 +18,7 @@ public class Catalogue {
 
     public void deleteProducts(String id){
         for(int i = 0; i < 100; i++){
-            if(m_products[i].getId().equals(id)){
+            if(m_products[i].getProductId().equals(id)){
                 m_products[i] = null;
                 break;
             }
@@ -31,13 +31,16 @@ public class Catalogue {
         double newPrice;
 
         for(int i = 0; i < 100; i++){
-            if(m_products[i].getId().equals(id)){
+            if(m_products[i].getProductId().equals(id)){
                 System.out.print("Enter ID: ");
                 newId = sc.nextLine();
+                m_products[i].setProductId(newId);
                 System.out.print("Enter Name: ");
                 newName = sc.nextLine();
+                m_products[i].setName(newName);
                 System.out.print("Enter Price: ");
                 newPrice = sc.nextDouble();
+                m_products[i].setPrice(newPrice);
                 sc.nextLine();
                 break;
             }
@@ -51,7 +54,7 @@ public class Catalogue {
     public Products getProduct(String id){
         int index = 0;
         for(int i = 0; i < 100; i++){
-            if(m_products[i].getId().equals(id)){
+            if(m_products[i].getProductId().equals(id)){
                 index = i;
                 break;
             }
@@ -61,8 +64,8 @@ public class Catalogue {
 
     public void displayProduct(String id){
         for(int i = 0; i < 100; i++){
-            if(m_products[i].getId().equals(id)){
-                System.out.println("Product ID:" + m_products[i].getId());
+            if(m_products[i].getProductId().equals(id)){
+                System.out.println("Product ID:" + m_products[i].getProductId());
                 System.out.println("Name:" + m_products[i].getName());
                 System.out.println("Price:" + m_products[i].getPrice());
                 break;

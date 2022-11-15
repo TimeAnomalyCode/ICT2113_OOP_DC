@@ -1,14 +1,15 @@
 public class Item {
-    private String m_productId;
+    private String m_itemid;
     private int m_weight;
 
-    Item(String productId, int weight){
-        m_productId = productId;
+    Item(String itemid, int weight){
+        //itemid(Eg. WC001, DC001)
+        m_itemid = itemid;
         m_weight = weight;
     }
 
-    public void setProductId(String productId){m_productId = productId;}
+    public void setItemId(String itemid){m_itemid = itemid;}
     public void setWeight(int weight){m_weight = weight;}
-    public String getProductId(){return m_productId;}
+    public String getItemId(){return m_itemid;}
     public int getWeight(){return m_weight;}
 }

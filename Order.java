@@ -46,7 +46,7 @@ public class Order {
                 System.out.println("OID: " + m_orderId[i]);
                 System.out.println("Date: " + m_orderDate[i]);
                 for(int j = 0; j < m_numOfItems; j++){
-                    System.out.println("Items: " + m_items[j].getProductId());
+                    System.out.println("Items: " + m_items[j].getItemId());
                 }
             }
         }
