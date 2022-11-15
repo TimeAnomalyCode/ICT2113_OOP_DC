@@ -5,8 +5,8 @@ public class Test {
     public static void main(String args[]){
         Catalogue ctl = new Catalogue();
         Order od = new Order(ctl);
-        Products p1 = new Products("WC001","White Chocolate","White Chocolate",5.0);
-        Products p2 = new Products("DC001","Dark Chocolate","Dark Chocolate",5.6);
+        Products p1 = new Products("WC001","White Chocolate",5.0);
+        Products p2 = new Products("DC001","Dark Chocolate",5.6);
 
         ctl.addProducts(p1);
         ctl.addProducts(p2);

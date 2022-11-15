@@ -27,7 +27,7 @@ public class Catalogue {
 
     public void modifyProducts(String id){
         Scanner sc = new Scanner(System.in);
-        String newId,newName,newCategory;
+        String newId,newName;
         double newPrice;
 
         for(int i = 0; i < 100; i++){
@@ -36,8 +36,6 @@ public class Catalogue {
                 newId = sc.nextLine();
                 System.out.print("Enter Name: ");
                 newName = sc.nextLine();
-                System.out.print("Enter Category: ");
-                newCategory = sc.nextLine();
                 System.out.print("Enter Price: ");
                 newPrice = sc.nextDouble();
                 sc.nextLine();
@@ -66,7 +64,6 @@ public class Catalogue {
             if(m_products[i].getId().equals(id)){
                 System.out.println("Product ID:" + m_products[i].getId());
                 System.out.println("Name:" + m_products[i].getName());
-                System.out.println("Category:" + m_products[i].getCategory());
                 System.out.println("Price:" + m_products[i].getPrice());
                 break;
             }
