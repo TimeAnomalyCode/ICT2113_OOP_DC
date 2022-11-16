@@ -6,13 +6,13 @@ import java.text.SimpleDateFormat;
 public class Order {
     private String[] m_orderId;
     private String[] m_orderDate;
-    private Item[] m_items;
+    private Item[][] m_items;
     private static int m_counter = 1;
     private Catalogue m_ctl;
     private int m_numOfItems = 0;
 
     Order(Catalogue ctl){
-        m_items = new Item[100];
+        m_items = new Item[100][100];
         m_orderId = new String[100];
         m_orderDate = new String[100];
         m_ctl = ctl;
@@ -26,12 +26,13 @@ public class Order {
         m_orderId[m_counter - 1] = generateValidOID();
         System.out.println("OID: " + m_orderId[m_counter - 2]);
         m_orderDate[m_counter - 2] = enterDate();
+        m_numOfItems = 0;
 
         do {
             productId = enterProductId();
             weight = enterWeight();
             it = new Item(productId, weight);
-            m_items[m_numOfItems++] = it;
+            m_items[m_counter - 2][m_numOfItems++] = it;
             System.out.println(productId + " Added to " + m_orderId[m_counter - 2]);
         } while (enterMoreItems());
     }
@@ -46,7 +47,7 @@ public class Order {
                 System.out.println("OID: " + m_orderId[i]);
                 System.out.println("Date: " + m_orderDate[i]);
                 for(int j = 0; j < m_numOfItems; j++){
-                    System.out.println("Items: " + m_items[j].getItemId());
+                    System.out.println("Items: " + m_items[i][j].getItemId());
                 }
             }
         }

@@ -5,12 +5,12 @@ public class Main {
 
     public static void main(String args[]) {
      
-        Validate checker = new Validate();
+        //Validate checker = new Validate();
         int option;
         boolean inrange = false;
 
         while (true) {
-            option = checker.main_enter_option();
+            option =Validate.main_enter_option();
             select_option(option);
             
         }
