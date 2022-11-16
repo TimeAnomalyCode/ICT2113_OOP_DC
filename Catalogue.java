@@ -12,45 +12,72 @@ public class Catalogue {
     }
 
     public void addProducts(Products p) {
-        
-        for (int i = 0; i < 100; i++) {
-            if (m_products[i] == null) {
-                m_products[i] = p;
-                System.out.println(m_products[i].getProductId() + " Added to Catalogue");
-                break;
+        if (!Product_Exist(p.getProductId())) {
+            for (int i = 0; i < 100; i++) {
+                if (m_products[i] == null) {
+                    m_products[i] = p;
+                    System.out.println(m_products[i].getProductId() + " Added to Catalogue");
+                    break;
+                }
             }
+        } else {
+            System.out.println("Error cannot add product with the same ID");
         }
     }
 
     public void deleteProducts(String id) {
-        for (int i = 0; i < 100; i++) {
-            if (m_products[i].getProductId().equals(id)) {
-                m_products[i] = null;
-                break;
+        if (Product_Exist(id)) {
+            for (int i = 0; i < 100; i++) {
+                if (m_products[i].getProductId().equals(id)) {
+                    m_products[i] = null;
+                    System.out.println(id + " Removed from Catalogue");
+                    break;
+                }
             }
+
+        } else {
+            System.out.println("Error Product ID \"" + id + "\" not found");
         }
+
     }
 
     public void modifyProducts(String id) {
-        Scanner sc = new Scanner(System.in);
-        String newId, newName;
-        double newPrice;
+        if (Product_Exist(id)) {
+            Scanner sc = new Scanner(System.in);
+            String newId, newName;
+            double newPrice;
+
+            for (int i = 0; i < 100; i++) {
+                if (m_products[i].getProductId().equals(id)) {
+                    System.out.println("Modifying Product " + id);
+                    System.out.print("Enter New ID: ");
+                    newId = sc.nextLine();
+                    m_products[i].setProductId(newId);
+                    System.out.print("Enter New Name: ");
+                    newName = sc.nextLine();
+                    m_products[i].setName(newName);
+                    System.out.print("Enter New Price: ");
+                    newPrice = sc.nextDouble();
+                    m_products[i].setPrice(newPrice);
+                    sc.nextLine();
+                    break;
+                }
+            }
+        } else {
+            System.out.println("Error Product ID \"" + id + "\" not found");
+        }
+    }
+
+    public boolean Product_Exist(String ProductId) {
 
         for (int i = 0; i < 100; i++) {
-            if (m_products[i].getProductId().equals(id)) {
-                System.out.print("Enter ID: ");
-                newId = sc.nextLine();
-                m_products[i].setProductId(newId);
-                System.out.print("Enter Name: ");
-                newName = sc.nextLine();
-                m_products[i].setName(newName);
-                System.out.print("Enter Price: ");
-                newPrice = sc.nextDouble();
-                m_products[i].setPrice(newPrice);
-                sc.nextLine();
-                break;
+            if (m_products[i] != null) {
+                if (m_products[i].getProductId().equals(ProductId)) {
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     //Save all products in catalogue Products array into Products.txt
@@ -140,7 +167,7 @@ public class Catalogue {
         }
         return m_products[index];
     }
-    
+
     //Display all Products in m_products array
     public void ListProducts() {
         for (int i = 0; i < 100; i++) {

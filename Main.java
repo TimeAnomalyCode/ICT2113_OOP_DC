@@ -1,16 +1,22 @@
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String args[]) {
-     
-        //Validate checker = new Validate();
+    public static void main(String args[]) throws IOException{
+        
+        // Declare catalogue
+        Catalogue ctl = new Catalogue();
+        // Load data from Products.txt to ctl Products array
+        ctl.loadProducts();
+        
+        Scanner sc = new Scanner(System.in);
         int option;
-        boolean inrange = false;
-
+        
         while (true) {
-            option =Validate.main_enter_option();
+                        
+            option =enter_option(sc);
             select_option(option);
             
         }
@@ -47,12 +53,51 @@ public class Main {
             case 2 -> {
                 System.out.println("View Order Maintenance\n");
             }
-            case 3 -> {
+            
+            case 3 -> {                
+                System.out.println("View Products Maintenance\n");
+
+            }
+
+            case 4 -> {                
                 System.out.println("Terminating program...");
                 exit();
             }
         }
 
     }
-
+    
+    public static int enter_option(Scanner sc){
+        int option;
+        boolean inrange;
+        
+        while (true){
+            System.out.print("Delicious Chocolate\n"
+                        +"1.New Order\n"
+                        + "2.View Order Maintenance\n"
+                        + "3.View Products Maintenance\n"
+                        + "4.Exit\n"
+                        + "Enter your option : ");
+            try {
+                option = sc.nextInt();
+                inrange = option_inrange(4,option);
+                if (!inrange) {
+                    System.out.println("Error option out of range\n");
+                    continue;
+                }
+            } catch (Exception e) {
+                System.out.println("Error invalid input please enter another option\n");
+                sc.nextLine();
+                continue;
+            }
+            return option;
+        }     
+    }
+    
+    public static boolean option_inrange(int num_options, int option){
+        boolean inrange = option > 0 && option < (num_options+1);
+        return inrange;
+    }
+    
+    
 }
