@@ -146,47 +146,6 @@ public class Order {
                 System.out.println("Failed to load Orders file\n");
             }
         }
-
-        /*
-
-
-        try {
-            Scanner inputFile = new Scanner(file);
-            System.out.println("Loading Products...");
-
-            if (file.length() == 0) {
-                System.out.println("Products.txt is empty");
-            }
-
-            for (int i = 0; i < 100 && inputFile.hasNext(); i++) {
-
-                productIdline = inputFile.nextLine();
-                productNameline = inputFile.nextLine();
-                productPriceline = inputFile.nextLine();
-                inputFile.nextLine();
-
-                productIdarr = productIdline.split(":");
-                productNamearr = productNameline.split(":");
-                productPricearr = productPriceline.split(":");
-
-                productId = productIdarr[1];
-                productName = productNamearr[1];
-                productPrice = Double.parseDouble(productPricearr[1]);
-
-                Products product = new Products(productId, productName, productPrice);
-
-                m_products[i] = product;
-            }
-            System.out.println("Products loaded\n");
-            inputFile.close();
-        } catch (Exception e) {
-            if (!file.exists()) {
-                System.out.println("Products.txt does not exist\n");
-            } else {
-                System.out.println("Failed to load Products file\n");
-            }
-        }
-         */
     }
 
     public void printOrder(String orderId){
