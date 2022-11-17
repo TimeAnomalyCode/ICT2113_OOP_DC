@@ -77,7 +77,6 @@ public class Order {
         }
     }
 
-    //loadOrder does not work yet
     public void LoadOrder() throws IOException{
         String orderIdline;
         String orderDateline;
@@ -134,6 +133,8 @@ public class Order {
                     Item it = new Item(productIdarr[l], weight[l]);
                     m_items[i][l] = it;
                 }
+
+                m_counter++;
             }
             System.out.println("Orders loaded\n");
             inputFile.close();
