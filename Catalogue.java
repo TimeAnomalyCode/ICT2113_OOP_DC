@@ -73,7 +73,7 @@ public class Catalogue {
         }
     }
 
-    public boolean Product_Exist(String ProductId) {
+    private boolean Product_Exist(String ProductId) {
 
         for (int i = 0; i < 100; i++) {
             if (m_products[i] != null) {
