@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.io.*;
 
 public class Catalogue {
-
+    
     private Products[] m_products;
 
     public Catalogue() {
@@ -24,7 +24,7 @@ public class Catalogue {
             System.out.println("Error cannot add product with the same ID");
         }
     }
-
+        
     public void deleteProducts(String id) {
         if (Product_Exist(id)) {
             for (int i = 0; i < 100; i++) {
@@ -50,16 +50,21 @@ public class Catalogue {
             for (int i = 0; i < 100; i++) {
                 if (m_products[i].getProductId().equals(id)) {
                     System.out.println("Modifying Product " + id);
-                    System.out.print("Enter New ID: ");
-                    newId = sc.nextLine();
-                    m_products[i].setProductId(newId);
-                    System.out.print("Enter New Name: ");
-                    newName = sc.nextLine();
-                    m_products[i].setName(newName);
-                    System.out.print("Enter New Price: ");
-                    newPrice = sc.nextDouble();
-                    m_products[i].setPrice(newPrice);
-                    sc.nextLine();
+                    
+                    newId = Main.enter_Product_Id();
+                    if (Product_Exist(newId) && !newId.equals(m_products[i].getProductId())){
+                        System.out.println("Error Cannot change Product Id to an existing Product Id");
+                        break;
+                    }
+                    else{
+                        m_products[i].setProductId(newId);
+                        newName = Main.enter_Product_Name();
+                        m_products[i].setName(newName);
+                        newPrice = Main.enter_Product_Price();
+                        m_products[i].setPrice(newPrice);
+                        System.out.println("Product " + id + " Successfully Modified");
+                    }
+
                     break;
                 }
             }
@@ -82,7 +87,7 @@ public class Catalogue {
 
     //Save all products in catalogue Products array into Products.txt
     public void saveProducts() throws IOException {
-        System.out.println("Saving Product file...");
+        System.out.println("Saving Product data...");
         try {
             PrintWriter outputFile = new PrintWriter("Products.txt");
             for (int i = 0; i < 100; i++) {
@@ -95,9 +100,9 @@ public class Catalogue {
                 outputFile.print("\n");
             }
             outputFile.close();
-            System.out.println("Products file Saved");
+            System.out.println("Products data Saved");
         } catch (Exception e) {
-            System.out.print("Failed to save Products file");
+            System.out.print("Failed to save Products data");
         }
     }
 
@@ -122,6 +127,7 @@ public class Catalogue {
 
         try {
             Scanner inputFile = new Scanner(file);
+            System.out.println("Loading Products...");
 
             if (file.length() == 0) {
                 System.out.println("Products.txt is empty");
@@ -146,12 +152,13 @@ public class Catalogue {
 
                 m_products[i] = product;
             }
+            System.out.println("Products loaded\n");
             inputFile.close();
         } catch (Exception e) {
             if (!file.exists()) {
-                System.out.println("Products.txt does not exist");
+                System.out.println("Products.txt does not exist\n");
             } else {
-                System.out.println("Failed to load Products file");
+                System.out.println("Failed to load Products file\n");
             }
         }
 
@@ -172,11 +179,10 @@ public class Catalogue {
     public void ListProducts() {
         for (int i = 0; i < 100; i++) {
             if (m_products[i] != null) {
-                System.out.println("Product " + (i + 1));
+                System.out.println("\nProduct " + (i + 1));
                 System.out.println("Product ID:" + m_products[i].getProductId());
                 System.out.println("Name:" + m_products[i].getName());
                 System.out.println("Price:" + m_products[i].getPrice());
-                System.out.print("\n");
                 continue;
             }
             break;
