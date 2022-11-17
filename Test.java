@@ -9,17 +9,16 @@ public class Test {
         ctl.loadProducts();
         
         Order od = new Order(ctl);
+        od.LoadOrder();
         Products p1 = new Products("WC","White Chocolate",5.0);
         Products p2 = new Products("DC","Dark Chocolate",5.6);
         ctl.addProducts(p1);
         ctl.addProducts(p2);
 
         od.createOrder();
-        od.createOrder();
-
-        od.printOrder("S10001");
-        od.printOrder("S10002");
+        //od.createOrder();
         
         ctl.saveProducts();
+        od.saveOrder();
     }
 }

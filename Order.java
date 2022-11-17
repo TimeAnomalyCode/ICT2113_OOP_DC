@@ -38,14 +38,18 @@ public class Order {
         } while (enterMoreItems());
     }
 
+    //saveOrder does not work yet
     public void saveOrder() throws IOException{
         System.out.println("Saving Order data...");
         try {
             PrintWriter outputFile = new PrintWriter("Orders.txt");
             for(int i = 0; i < 100; i++){
-                if(m_items.length == 0){
+                /*
+                if(m_items == null){
                     break;
                 }
+
+                 */
                 outputFile.println("OrderId:" + m_orderId[i]);
                 outputFile.println("OrderDate:" + m_orderDate[i]);
 
@@ -67,6 +71,7 @@ public class Order {
         }
     }
 
+    //loadOrder does not work yet
     public void LoadOrder() throws IOException{
         String orderIdline;
         String orderDateline;
