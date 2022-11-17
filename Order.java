@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,7 +38,7 @@ public class Order {
         } while (enterMoreItems());
     }
 
-    public void saveOrder(){
+    public void saveOrder() throws IOException{
         System.out.println("Saving Order data...");
         try {
             PrintWriter outputFile = new PrintWriter("Orders.txt");
@@ -47,9 +49,16 @@ public class Order {
                 outputFile.println("OrderId:" + m_orderId[i]);
                 outputFile.println("OrderDate:" + m_orderDate[i]);
 
+                outputFile.print("ProductId:");
                 for(int j = 0; j < 100; j++){
-                    outputFile.println("Item:" + m_items[i][j]);
+                    outputFile.print(m_items[i][j].getItemId() + ",");
                 }
+
+                outputFile.print("Weight:");
+                for(int j = 0; j < 100; j++){
+                    outputFile.print(m_items[i][j].getWeight() + ",");
+                }
+                System.out.println();
             }
             outputFile.close();
             System.out.println("Order data Saved");
@@ -58,8 +67,114 @@ public class Order {
         }
     }
 
-    public void LoadOrder(){
+    public void LoadOrder() throws IOException{
+        String orderIdline;
+        String orderDateline;
+        String productIdline;
+        String weightline;
 
+        String[] orderIdarr;
+        String[] orderDatearr;
+        String[] productIdarr;
+        String[] weightarr;
+
+        String orderId;
+        String orderDate;
+        String[] productId = new String[100];
+        int[] weight = new int[100];
+
+        File file = new File("Orders.txt");
+
+        try {
+            Scanner inputFile = new Scanner(file);
+            System.out.println("Loading Orders...");
+
+            if(file.length() == 0){
+                System.out.println("Orders.txt is empty");
+            }
+
+            for(int i = 0; i < 100 && inputFile.hasNext(); i++){
+                orderIdline = inputFile.nextLine();
+                orderDateline = inputFile.nextLine();
+                productIdline = inputFile.nextLine();
+                weightline = inputFile.nextLine();
+                inputFile.nextLine();
+
+                orderIdarr = orderIdline.split(":");
+                orderDatearr = orderDateline.split(":");
+                productIdarr = productIdline.split("[:,]+");
+                weightarr = weightline.split("[:,]+");
+
+                orderId = orderIdarr[1];
+                orderDate = orderDatearr[1];
+                //Verify if productIdarr == weightarr, else error
+                //Cannot add it to item class
+                for(int j = 1; j < productIdarr.length; j++){
+                    productId[j - 1] = productIdarr[j];
+                }
+
+                for(int k = 1; k < weightarr.length; k++){
+                    weight[k - 1] = Integer.parseInt(weightarr[k]);
+                }
+
+                m_orderId[i] = orderId;
+                m_orderDate[i] = orderDate;
+                for(int l = 0; l < productIdarr.length; l++){
+                    Item it = new Item(productIdarr[l], weight[l]);
+                    m_items[i][l] = it;
+                }
+            }
+            System.out.println("Orders loaded\n");
+            inputFile.close();
+
+        } catch (Exception e){
+            if (!file.exists()) {
+                System.out.println("Orders.txt does not exist\n");
+            } else {
+                System.out.println("Failed to load Orders file\n");
+            }
+        }
+
+        /*
+
+
+        try {
+            Scanner inputFile = new Scanner(file);
+            System.out.println("Loading Products...");
+
+            if (file.length() == 0) {
+                System.out.println("Products.txt is empty");
+            }
+
+            for (int i = 0; i < 100 && inputFile.hasNext(); i++) {
+
+                productIdline = inputFile.nextLine();
+                productNameline = inputFile.nextLine();
+                productPriceline = inputFile.nextLine();
+                inputFile.nextLine();
+
+                productIdarr = productIdline.split(":");
+                productNamearr = productNameline.split(":");
+                productPricearr = productPriceline.split(":");
+
+                productId = productIdarr[1];
+                productName = productNamearr[1];
+                productPrice = Double.parseDouble(productPricearr[1]);
+
+                Products product = new Products(productId, productName, productPrice);
+
+                m_products[i] = product;
+            }
+            System.out.println("Products loaded\n");
+            inputFile.close();
+        } catch (Exception e) {
+            if (!file.exists()) {
+                System.out.println("Products.txt does not exist\n");
+            } else {
+                System.out.println("Failed to load Products file\n");
+            }
+        }
+         */
     }
 
     public void printOrder(String orderId){
