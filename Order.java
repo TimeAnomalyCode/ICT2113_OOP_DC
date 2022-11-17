@@ -33,7 +33,7 @@ public class Order {
             productId = enterProductId();
             weight = enterWeight();
             it = new Item(productId, weight);
-            m_items[m_counter - 2][m_numOfItems++] = it;
+            m_items[m_counter - 2][m_numOfItems] = it;
             System.out.println(productId + " Added to " + m_orderId[m_counter - 2]);
         } while (enterMoreItems());
     }
@@ -43,7 +43,8 @@ public class Order {
         System.out.println("Saving Order data...");
         try {
             PrintWriter outputFile = new PrintWriter("Orders.txt");
-            for(int i = 0; i < 100; i++){
+            for(int i = 0; i < m_counter; i++){
+                m_numOfItems = ActualNumberOfItems(m_items);
                 if(m_items[i][m_numOfItems - 1] == null){
                     break;
                 }
@@ -54,19 +55,17 @@ public class Order {
                 outputFile.print("ProductId:");
                 for(int j = 0; j < m_numOfItems; j++){
                     outputFile.print(m_items[i][j].getItemId());
-                    if((m_numOfItems - 1) == j){
-                        break;
+                    if(j != m_numOfItems) {
+                        outputFile.print(",");
                     }
-                    outputFile.print(",");
                 }
 
                 outputFile.print("\nWeight:");
                 for(int j = 0; j < m_numOfItems; j++){
                     outputFile.print(m_items[i][j].getWeight());
-                    if((m_numOfItems - 1) == j){
-                        break;
+                    if(j != m_numOfItems) {
+                        outputFile.print(",");
                     }
-                    outputFile.print(",");
                 }
                 outputFile.print("\n\n");
             }
@@ -148,16 +147,47 @@ public class Order {
         }
     }
 
-    public void printOrder(String orderId){
-        for(int i = 0; i < 100; i++){
+    public void ListOneOrder(String orderId){
+        m_numOfItems = ActualNumberOfItems(m_items);
+        for(int i = 0; i < m_counter; i++){
             if(orderId.equals(m_orderId[i])){
                 System.out.println("OID: " + m_orderId[i]);
                 System.out.println("Date: " + m_orderDate[i]);
                 for(int j = 0; j < m_numOfItems; j++){
                     System.out.println("Items: " + m_items[i][j].getItemId());
                 }
+                break;
+            }
+            else {
+                System.out.println("Order ID Not Found");
             }
         }
+    }
+
+    public void ListAllOrders(){
+        m_numOfItems = ActualNumberOfItems(m_items);
+        for(int i = 0; i < 100; i++){
+            System.out.println("OID: " + m_orderId[i]);
+            System.out.println("Date: " + m_orderDate[i]);
+            for(int j = 0; j < m_numOfItems; j++){
+                System.out.println("Items: " + m_items[i][j].getItemId());
+            }
+        }
+    }
+
+    private int ActualNumberOfItems(Item[][] itemarr){
+        int numOfItems = 0;
+        for(int i = 0; i < itemarr.length; i++){
+            for(int j = 0; j < itemarr[i].length; j++){
+                if(itemarr[i][j] == null){
+                    numOfItems = j;
+                    break;
+                }
+            }
+            break;
+        }
+
+        return numOfItems;
     }
 
     private String generateValidOID(){
@@ -280,6 +310,7 @@ public class Order {
             return false;
         }
 
+        m_numOfItems++;
         return true;
     }
 

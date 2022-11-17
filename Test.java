@@ -17,6 +17,7 @@ public class Test {
 
         od.createOrder();
         od.createOrder();
+        od.ListOneOrder("S10001");
         
         ctl.saveProducts();
         od.saveOrder();

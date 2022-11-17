@@ -7,6 +7,8 @@ public class Main {
     public static Scanner sc = new Scanner(System.in);
     // Declare catalogue;
     public static Catalogue ctl = new Catalogue();
+    //Order using Catalogue
+    public static Order od = new Order(ctl);
 
     public static void main(String args[]) throws IOException{
         System.out.println("Starting program...");
@@ -52,6 +54,7 @@ public class Main {
             case 4 -> {                         
                 System.out.println("\n");
                 //Save Orders data Here
+
                 
                 // Save Products data
                 ctl.saveProducts();
