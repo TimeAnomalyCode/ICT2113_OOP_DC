@@ -16,7 +16,7 @@ public class Test {
         ctl.addProducts(p2);
 
         od.createOrder();
-        //od.createOrder();
+        od.createOrder();
         
         ctl.saveProducts();
         od.saveOrder();

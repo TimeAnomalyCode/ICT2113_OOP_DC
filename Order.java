@@ -38,31 +38,37 @@ public class Order {
         } while (enterMoreItems());
     }
 
-    //saveOrder does not work yet
+
     public void saveOrder() throws IOException{
         System.out.println("Saving Order data...");
         try {
             PrintWriter outputFile = new PrintWriter("Orders.txt");
             for(int i = 0; i < 100; i++){
-                /*
-                if(m_items == null){
+                if(m_items[i][m_numOfItems - 1] == null){
                     break;
                 }
 
-                 */
                 outputFile.println("OrderId:" + m_orderId[i]);
                 outputFile.println("OrderDate:" + m_orderDate[i]);
 
                 outputFile.print("ProductId:");
-                for(int j = 0; j < 100; j++){
-                    outputFile.print(m_items[i][j].getItemId() + ",");
+                for(int j = 0; j < m_numOfItems; j++){
+                    outputFile.print(m_items[i][j].getItemId());
+                    if((m_numOfItems - 1) == j){
+                        break;
+                    }
+                    outputFile.print(",");
                 }
 
-                outputFile.print("Weight:");
-                for(int j = 0; j < 100; j++){
-                    outputFile.print(m_items[i][j].getWeight() + ",");
+                outputFile.print("\nWeight:");
+                for(int j = 0; j < m_numOfItems; j++){
+                    outputFile.print(m_items[i][j].getWeight());
+                    if((m_numOfItems - 1) == j){
+                        break;
+                    }
+                    outputFile.print(",");
                 }
-                System.out.println();
+                outputFile.print("\n\n");
             }
             outputFile.close();
             System.out.println("Order data Saved");
