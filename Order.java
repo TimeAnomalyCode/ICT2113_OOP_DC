@@ -1,8 +1,7 @@
-import java.text.DateFormat;
-import java.util.Locale;
-import java.util.Scanner;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Scanner;
 public class Order {
     private String[] m_orderId;
     private String[] m_orderDate;
@@ -38,6 +37,28 @@ public class Order {
     }
 
     public void saveOrder(){
+        System.out.println("Saving Order data...");
+        try {
+            PrintWriter outputFile = new PrintWriter("Orders.txt");
+            for(int i = 0; i < 100; i++){
+                if(m_items.length == 0){
+                    break;
+                }
+                outputFile.println("OrderId:" + m_orderId[i]);
+                outputFile.println("OrderDate:" + m_orderDate[i]);
+
+                for(int j = 0; j < 100; j++){
+                    outputFile.println("Item:" + m_items[i][j]);
+                }
+            }
+            outputFile.close();
+            System.out.println("Order data Saved");
+        } catch (Exception e) {
+            System.out.print("Failed to save Orders data");
+        }
+    }
+
+    public void LoadOrder(){
 
     }
 
