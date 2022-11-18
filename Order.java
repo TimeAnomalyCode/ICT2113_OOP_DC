@@ -153,21 +153,25 @@ public class Order {
     }
 
     public void ListOneOrder(String orderId){
-        m_numOfItemsCounter = 0;
+        boolean foundOrderId = false;
+        String[] tempArr = orderId.split("S");
+        m_numOfItemsCounter = Integer.parseInt(tempArr[1]) - 10001;
         m_numOfItems = ActualNumberOfItems(m_items);
-        try{
-            for(int i = 0; i < m_counter; i++){
-                if(orderId.equals(m_orderId[i])){
-                    System.out.println("OID: " + m_orderId[i]);
-                    System.out.println("Date: " + m_orderDate[i]);
-                    for(int j = 0; j < m_numOfItems; j++){
-                        System.out.println("Items: " + m_items[i][j].getItemId());
-                    }
-                    break;
+        for(int i = 0; i < m_counter - 1; i++){
+
+            if(orderId.equals(m_orderId[i])){
+                foundOrderId = true;
+                System.out.println("OID: " + m_orderId[i]);
+                System.out.println("Date: " + m_orderDate[i]);
+                for(int j = 0; j < m_numOfItems; j++){
+                    System.out.println("Items: " + m_items[i][j].getItemId());
+                    System.out.println("Weight: " + m_items[i][j].getWeight());
                 }
+                break;
             }
-        } catch (NullPointerException e){
-            System.out.println("Order ID is not found");
+        }
+        if(!foundOrderId){
+            System.out.println("OrderID not Found");
         }
     }
 

@@ -15,11 +15,12 @@ public class Test {
         ctl.addProducts(p1);
         ctl.addProducts(p2);
 
-        od.createOrder();
-        od.createOrder();
+        //od.createOrder();
+        //od.createOrder();
         od.ListOneOrder("S10001");
         od.ListOneOrder("S10002");
-        od.ListOneOrder("S10003");
+        od.ListOneOrder("S10007");
+        od.ListOneOrder("S10017");
         
         ctl.saveProducts();
         od.saveOrder();
