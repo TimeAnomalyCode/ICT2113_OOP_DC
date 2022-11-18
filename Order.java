@@ -194,7 +194,7 @@ public class Order {
         for(int j = 0; j < numOfItems; j++){
             System.out.println("Items: " + m_items[i][j].getItemId());
             System.out.println("Weight: " + m_items[i][j].getWeight());
-            System.out.printf("");
+            System.out.printf("%s001\t%s",m_items[i][j].getItemId(),m_ctl.getProduct(m_items[i][j].getItemId()).getName());
         }
     }
 
@@ -267,7 +267,7 @@ public class Order {
 
         } while(!isValidProductId(productId));
 
-        return productId + "001";
+        return productId;
     }
 
     private boolean isValidProductId(String id){
