@@ -140,14 +140,14 @@ public class Order {
 
                 m_counter++;
             }
-            System.out.println("Orders loaded\n");
+            System.out.println("Orders loaded");
             inputFile.close();
 
         } catch (Exception e){
             if (!file.exists()) {
-                System.out.println("Orders.txt does not exist\n");
+                System.out.println("Orders.txt does not exist");
             } else {
-                System.out.println("Failed to load Orders file\n");
+                System.out.println("Failed to load Orders file");
             }
         }
     }
@@ -166,7 +166,6 @@ public class Order {
                 if(orderId.equals(m_orderId[i])){
                     foundOrderId = true;
                     TableOrder(i, m_numOfItems);
-                    System.out.print("\n\n");
                     break;
                 }
             }
@@ -183,7 +182,6 @@ public class Order {
         for(int i = 0; i < m_counter - 1; i++){
             m_numOfItems = ActualNumberOfItems(m_items);
             TableOrder(i, m_numOfItems);
-            System.out.print("\n\n");
         }
     }
 
@@ -209,7 +207,7 @@ public class Order {
             total += price;
         }
         System.out.println("-----------------------------------------------------------------");
-        System.out.printf("TOTAL\t\t\t\t\t\t\t\t\t\t\t\t\t%.2f",total);
+        System.out.printf("TOTAL\t\t\t\t\t\t\t\t\t\t\t\t\t%.2f\n\n",total);
     }
 
     private int ActualNumberOfItems(Item[][] itemarr){

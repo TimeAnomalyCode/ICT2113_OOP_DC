@@ -41,10 +41,10 @@ public class Main {
     public static void select_option(int option) throws IOException{
         switch (option) {
             case 1 -> {
-                System.out.println("New Order\n");
+                new_order();
             }
             case 2 -> {
-                System.out.println("View Order Maintenance\n");
+                view_order_maintenance();
             }
             
             case 3 -> {     
@@ -67,7 +67,7 @@ public class Main {
     
     // option 1
     public static void new_order() {
-        // declare new_order object
+        od.createOrder();
     }
 
     // option 2
