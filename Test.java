@@ -17,12 +17,10 @@ public class Test {
 
         //od.createOrder();
         //od.createOrder();
-        /*
-        od.ListOneOrder("S10001");
+        od.ListOneOrder("10001");
         od.ListOneOrder("S10002");
         od.ListOneOrder("S10007");
         od.ListOneOrder("S10017");
-         */
         od.ListAllOrders();
         
         ctl.saveProducts();

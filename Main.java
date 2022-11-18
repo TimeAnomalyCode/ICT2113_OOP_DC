@@ -15,6 +15,7 @@ public class Main {
         
         // Load data from Products.txt to ctl Products array
         ctl.loadProducts();
+        od.LoadOrder();
                 
         int option;
         String Main_options = "\nDelicious Chocolate\n"
@@ -53,11 +54,10 @@ public class Main {
 
             case 4 -> {                         
                 System.out.println("\n");
-                //Save Orders data Here
-
-                
                 // Save Products data
                 ctl.saveProducts();
+                //Save Orders data Here
+                od.saveOrder();
                 System.out.println("Terminating program...");
                 exit();
             }
@@ -72,7 +72,27 @@ public class Main {
 
     // option 2
     public static void view_order_maintenance() {
-        // declare catalogue object
+        String order_options = "\nOrder options\n"
+                + "1. List Specified Order\n"
+                + "2. List All Orders\n"
+                + "3. Back to Main menu\n"
+                + "Enter your option : ";
+        int option;
+        while (true){
+            option = enter_option(order_options,3);
+
+            if (option==3)
+                break;
+            select_order_option(option);
+        }
+    }
+
+    //option 2 sub menu
+    public static void select_order_option(int option) {
+        switch (option){
+            case 1 -> {}
+            case 2 -> {od.ListAllOrders();}
+        }
     }
     
     // option 3
