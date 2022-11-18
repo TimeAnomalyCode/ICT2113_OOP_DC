@@ -11,6 +11,7 @@ public class Order {
     private static int m_counter = 1;
     private Catalogue m_ctl;
     private int m_numOfItems = 0;
+    private int m_numOfItemsCounter = 0;
 
     Order(Catalogue ctl){
         m_items = new Item[100][100];
@@ -43,11 +44,12 @@ public class Order {
         System.out.println("Saving Order data...");
         try {
             PrintWriter outputFile = new PrintWriter("Orders.txt");
+            m_numOfItemsCounter = 0;
             for(int i = 0; i < m_counter; i++){
-                m_numOfItems = ActualNumberOfItems(m_items);
-                if(m_items[i][m_numOfItems - 1] == null){
+                if(m_items[i][0] == null){
                     break;
                 }
+                m_numOfItems = ActualNumberOfItems(m_items);
 
                 outputFile.println("OrderId:" + m_orderId[i]);
                 outputFile.println("OrderDate:" + m_orderDate[i]);
@@ -55,7 +57,7 @@ public class Order {
                 outputFile.print("ProductId:");
                 for(int j = 0; j < m_numOfItems; j++){
                     outputFile.print(m_items[i][j].getItemId());
-                    if(j != m_numOfItems) {
+                    if(j != m_numOfItems - 1) {
                         outputFile.print(",");
                     }
                 }
@@ -63,7 +65,7 @@ public class Order {
                 outputFile.print("\nWeight:");
                 for(int j = 0; j < m_numOfItems; j++){
                     outputFile.print(m_items[i][j].getWeight());
-                    if(j != m_numOfItems) {
+                    if(j != m_numOfItems - 1) {
                         outputFile.print(",");
                     }
                 }
@@ -148,6 +150,7 @@ public class Order {
     }
 
     public void ListOneOrder(String orderId){
+        m_numOfItemsCounter = 0;
         m_numOfItems = ActualNumberOfItems(m_items);
         for(int i = 0; i < m_counter; i++){
             if(orderId.equals(m_orderId[i])){
@@ -177,10 +180,11 @@ public class Order {
 
     private int ActualNumberOfItems(Item[][] itemarr){
         int numOfItems = 0;
-        for(int i = 0; i < itemarr.length; i++){
+        for(int i = m_numOfItemsCounter; i < itemarr.length; i++){
             for(int j = 0; j < itemarr[i].length; j++){
                 if(itemarr[i][j] == null){
                     numOfItems = j;
+                    m_numOfItemsCounter++;
                     break;
                 }
             }
