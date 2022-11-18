@@ -18,6 +18,8 @@ public class Test {
         od.createOrder();
         od.createOrder();
         od.ListOneOrder("S10001");
+        od.ListOneOrder("S10002");
+        od.ListOneOrder("S10003");
         
         ctl.saveProducts();
         od.saveOrder();

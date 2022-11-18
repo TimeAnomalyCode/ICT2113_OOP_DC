@@ -111,6 +111,9 @@ public class Order {
                 weightline = inputFile.nextLine();
                 inputFile.nextLine();
 
+                productIdarr = null;
+                weightarr = null;
+
                 orderIdarr = orderIdline.split(":");
                 orderDatearr = orderDateline.split(":");
                 productIdarr = productIdline.split("[:,]+");
@@ -130,8 +133,8 @@ public class Order {
 
                 m_orderId[i] = orderId;
                 m_orderDate[i] = orderDate;
-                for(int l = 0; l < productIdarr.length; l++){
-                    Item it = new Item(productIdarr[l], weight[l]);
+                for(int l = 0; l < productIdarr.length - 1; l++){
+                    Item it = new Item(productId[l], weight[l]);
                     m_items[i][l] = it;
                 }
 
@@ -152,18 +155,19 @@ public class Order {
     public void ListOneOrder(String orderId){
         m_numOfItemsCounter = 0;
         m_numOfItems = ActualNumberOfItems(m_items);
-        for(int i = 0; i < m_counter; i++){
-            if(orderId.equals(m_orderId[i])){
-                System.out.println("OID: " + m_orderId[i]);
-                System.out.println("Date: " + m_orderDate[i]);
-                for(int j = 0; j < m_numOfItems; j++){
-                    System.out.println("Items: " + m_items[i][j].getItemId());
+        try{
+            for(int i = 0; i < m_counter; i++){
+                if(orderId.equals(m_orderId[i])){
+                    System.out.println("OID: " + m_orderId[i]);
+                    System.out.println("Date: " + m_orderDate[i]);
+                    for(int j = 0; j < m_numOfItems; j++){
+                        System.out.println("Items: " + m_items[i][j].getItemId());
+                    }
+                    break;
                 }
-                break;
             }
-            else {
-                System.out.println("Order ID Not Found");
-            }
+        } catch (NullPointerException e){
+            System.out.println("Order ID is not found");
         }
     }
 
