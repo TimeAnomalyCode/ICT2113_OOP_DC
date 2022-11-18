@@ -165,12 +165,7 @@ public class Order {
 
                 if(orderId.equals(m_orderId[i])){
                     foundOrderId = true;
-                    System.out.println("OID: " + m_orderId[i]);
-                    System.out.println("Date: " + m_orderDate[i]);
-                    for(int j = 0; j < m_numOfItems; j++){
-                        System.out.println("Items: " + m_items[i][j].getItemId());
-                        System.out.println("Weight: " + m_items[i][j].getWeight());
-                    }
+                    //TableOrder
                     System.out.println();
                     break;
                 }
@@ -187,13 +182,19 @@ public class Order {
         m_numOfItemsCounter = 0;
         for(int i = 0; i < m_counter - 1; i++){
             m_numOfItems = ActualNumberOfItems(m_items);
-            System.out.println("OID: " + m_orderId[i]);
-            System.out.println("Date: " + m_orderDate[i]);
-            for(int j = 0; j < m_numOfItems; j++){
-                System.out.println("Items: " + m_items[i][j].getItemId());
-                System.out.println("Weight: " + m_items[i][j].getWeight());
-            }
+            //TableOrder
             System.out.println();
+        }
+    }
+
+    private void TableOrder(int i, int numOfItems){
+        System.out.printf("OID: %s\t\tDate: %s\n",m_orderId[i],m_orderDate[i]);
+        System.out.println("ItemNo#\tName\t\tWeight\tPer 100g\tPrice ($)");
+        System.out.println("--------------------------------------------");
+        for(int j = 0; j < numOfItems; j++){
+            System.out.println("Items: " + m_items[i][j].getItemId());
+            System.out.println("Weight: " + m_items[i][j].getWeight());
+            System.out.printf("");
         }
     }
 
@@ -257,7 +258,7 @@ public class Order {
         String productId;
 
         do{
-            System.out.print("Enter Product ID(Eg.WC001): ");
+            System.out.print("Enter Product ID(Eg.WC): ");
             productId = sc.nextLine();
 
             if(!isValidProductId(productId)){
@@ -266,7 +267,7 @@ public class Order {
 
         } while(!isValidProductId(productId));
 
-        return productId;
+        return productId + "001";
     }
 
     private boolean isValidProductId(String id){

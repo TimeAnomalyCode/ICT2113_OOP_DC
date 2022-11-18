@@ -90,7 +90,7 @@ public class Main {
     //option 2 sub menu
     public static void select_order_option(int option) {
         switch (option){
-            case 1 -> {}
+            case 1 -> {od.ListOneOrder();}
             case 2 -> {od.ListAllOrders();}
         }
     }
