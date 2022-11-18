@@ -152,7 +152,10 @@ public class Order {
         }
     }
 
-    public void ListOneOrder(String orderId){
+    public void ListOneOrder(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter OrderId(Eg.S10001): ");
+        String orderId = sc.nextLine();
         try {
             boolean foundOrderId = false;
             String[] tempArr = orderId.split("S");
@@ -176,7 +179,7 @@ public class Order {
                 System.out.println("OrderID not Found");
             }
         } catch (Exception e){
-            System.out.println("OrderID not Found");
+            System.out.println("Invalid OrderID");
         }
     }
 

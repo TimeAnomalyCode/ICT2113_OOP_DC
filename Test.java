@@ -17,10 +17,7 @@ public class Test {
 
         //od.createOrder();
         //od.createOrder();
-        od.ListOneOrder("10001");
-        od.ListOneOrder("S10002");
-        od.ListOneOrder("S10007");
-        od.ListOneOrder("S10017");
+        od.ListOneOrder();
         od.ListAllOrders();
         
         ctl.saveProducts();
