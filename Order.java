@@ -165,8 +165,8 @@ public class Order {
 
                 if(orderId.equals(m_orderId[i])){
                     foundOrderId = true;
-                    //TableOrder
-                    System.out.println();
+                    TableOrder(i, m_numOfItems);
+                    System.out.print("\n\n");
                     break;
                 }
             }
@@ -182,20 +182,34 @@ public class Order {
         m_numOfItemsCounter = 0;
         for(int i = 0; i < m_counter - 1; i++){
             m_numOfItems = ActualNumberOfItems(m_items);
-            //TableOrder
-            System.out.println();
+            TableOrder(i, m_numOfItems);
+            System.out.print("\n\n");
         }
     }
 
     private void TableOrder(int i, int numOfItems){
-        System.out.printf("OID: %s\t\tDate: %s\n",m_orderId[i],m_orderDate[i]);
-        System.out.println("ItemNo#\tName\t\tWeight\tPer 100g\tPrice ($)");
-        System.out.println("--------------------------------------------");
+        double total = 0.0;
+        String itemNo = "";
+        String name = "";
+        int weight = 0;
+        double per100 = 0.0;
+        double price = 0.0;
+
+        System.out.printf("OID: %s\t\t\tDate: %s\n",m_orderId[i],m_orderDate[i]);
+        System.out.println("ItemNo#\t\tName\t\t\t\tWeight\t\tPer 100g\tPrice ($)");
+        System.out.println("-----------------------------------------------------------------");
         for(int j = 0; j < numOfItems; j++){
-            System.out.println("Items: " + m_items[i][j].getItemId());
-            System.out.println("Weight: " + m_items[i][j].getWeight());
-            System.out.printf("%s001\t%s",m_items[i][j].getItemId(),m_ctl.getProduct(m_items[i][j].getItemId()).getName());
+            itemNo = m_items[i][j].getItemId();
+            name = m_ctl.getProduct(itemNo).getName();
+            weight = m_items[i][j].getWeight();
+            per100 = m_ctl.getProduct(m_items[i][j].getItemId()).getPrice();
+            price = (weight/100.0) * per100;
+            System.out.printf("%s001\t\t%s\t\t%d\t\t\t%.2f\t\t%.2f\n",
+                    itemNo, name, weight, per100, price);
+            total += price;
         }
+        System.out.println("-----------------------------------------------------------------");
+        System.out.printf("TOTAL\t\t\t\t\t\t\t\t\t\t\t\t\t%.2f",total);
     }
 
     private int ActualNumberOfItems(Item[][] itemarr){
