@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class Order {
+
     private String[] m_orderId;
     private String[] m_orderDate;
     private Item[][] m_items;
@@ -39,7 +41,6 @@ public class Order {
             System.out.println(productId + " Added to " + m_orderId[m_counter - 2]);
         } while (enterMoreItems());
     }
-
 
     public void saveOrder() throws IOException {
         System.out.println("Saving Order data...");
@@ -195,19 +196,19 @@ public class Order {
         double price = 0.0;
 
         System.out.printf("OID: %s\t\t\tDate: %s\n", m_orderId[i], m_orderDate[i]);
-        System.out.println("ItemNo#\t\tName\t\t\t\tWeight\t\tPer 100g\tPrice ($)");
-        System.out.println("-----------------------------------------------------------------");
+        System.out.printf("%-15s%-30s%-15s%-15s%-15s\n", "ItemNo#", "Name", "Weight", "Per 100g", "Price ($)");
+        System.out.println("--------------------------------------------------------------------------------------------------------");
         for (int j = 0; j < numOfItems; j++) {
             itemNo = m_items[i][j].getItemId();
             name = m_ctl.getProduct(itemNo).getName();
             weight = m_items[i][j].getWeight();
             per100 = m_ctl.getProduct(m_items[i][j].getItemId()).getPrice();
             price = (weight / 100.0) * per100;
-            System.out.printf("%s001\t\t%s\t\t%d\t\t\t%.2f\t\t%.2f\n",
-                    itemNo, name, weight, per100, price);
+            System.out.printf("%-15s%-30s%-15d%-15.2f%-15.2f\n",
+                    (itemNo + "001"), name, weight, per100, price);
             total += price;
         }
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------------------------------------");
         System.out.printf("TOTAL\t\t\t\t\t\t\t\t\t\t\t\t\t%.2f\n\n", total);
     }
 
@@ -370,9 +371,9 @@ Order od = new Order();
 od.createOrder();
 od.createOrder();
 od.createOrder();
-*/
+ */
 
-/*
+ /*
 Notes 2
 Catalogue ctl = new Catalogue();
 Order od = new Order(ctl);
@@ -381,4 +382,4 @@ Products p2 = new Products("DC001","Dark Chocolate","Dark Chocolate",5.6);
 
 ctl.addProducts(p1);
 ctl.addProducts(p2);
-*/
+ */

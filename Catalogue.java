@@ -176,16 +176,24 @@ public class Catalogue {
 
     //Display all Products in m_products array
     public void ListProducts() {
+        String ProductId;
+        String ProductName;
+        Double ProductPrice;
+        System.out.printf("%-10s%-20s%-20s%-10s\n", "No.", "Product ID", "Name", "Price ($)");
+        System.out.println("-----------------------------------------------------------");
         for (int i = 0; i < 100; i++) {
+
             if (m_products[i] != null) {
-                System.out.println("\nProduct " + (i + 1));
-                System.out.println("Product ID:" + m_products[i].getProductId());
-                System.out.println("Name:" + m_products[i].getName());
-                System.out.println("Price:" + m_products[i].getPrice());
+
+                ProductId = m_products[i].getProductId();
+                ProductName = m_products[i].getName();
+                ProductPrice = m_products[i].getPrice();
+                System.out.printf("%-10d%-20s%-20s%-10.2f\n", (i + 1), ProductId, ProductName, ProductPrice);
                 continue;
             }
             break;
         }
+        System.out.println("-----------------------------------------------------------");
     }
 
     public void displayProduct(String id) {

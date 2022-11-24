@@ -7,7 +7,7 @@ public class Main {
     public static Scanner sc = new Scanner(System.in);
     // Declare catalogue;
     public static Catalogue ctl = new Catalogue();
-    //Order using Catalogue
+    //Order using Catalogue3
     public static Order od = new Order(ctl);
 
     public static void main(String args[]) throws IOException {
