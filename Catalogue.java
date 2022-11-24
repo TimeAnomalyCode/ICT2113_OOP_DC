@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.io.*;
 
 public class Catalogue {
-    
+
     private Products[] m_products;
 
     public Catalogue() {
@@ -24,7 +24,7 @@ public class Catalogue {
             System.out.println("Error cannot add product with the same ID");
         }
     }
-        
+
     public void deleteProducts(String id) {
         if (Product_Exist(id)) {
             for (int i = 0; i < 100; i++) {
@@ -50,13 +50,12 @@ public class Catalogue {
             for (int i = 0; i < 100; i++) {
                 if (m_products[i].getProductId().equals(id)) {
                     System.out.println("Modifying Product " + id);
-                    
+
                     newId = Main.enter_Product_Id();
-                    if (Product_Exist(newId) && !newId.equals(m_products[i].getProductId())){
+                    if (Product_Exist(newId) && !newId.equals(m_products[i].getProductId())) {
                         System.out.println("Error Cannot change Product Id to an existing Product Id");
                         break;
-                    }
-                    else{
+                    } else {
                         m_products[i].setProductId(newId);
                         newName = Main.enter_Product_Name();
                         m_products[i].setName(newName);

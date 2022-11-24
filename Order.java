@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+
 public class Order {
     private String[] m_orderId;
     private String[] m_orderDate;
@@ -13,14 +14,14 @@ public class Order {
     private int m_numOfItems = 0;
     private int m_numOfItemsCounter = 0;
 
-    Order(Catalogue ctl){
+    Order(Catalogue ctl) {
         m_items = new Item[100][100];
         m_orderId = new String[100];
         m_orderDate = new String[100];
         m_ctl = ctl;
     }
 
-    public void createOrder(){
+    public void createOrder() {
         Item it;
         String productId;
         int weight;
@@ -40,13 +41,13 @@ public class Order {
     }
 
 
-    public void saveOrder() throws IOException{
+    public void saveOrder() throws IOException {
         System.out.println("Saving Order data...");
         try {
             PrintWriter outputFile = new PrintWriter("Orders.txt");
             m_numOfItemsCounter = 0;
-            for(int i = 0; i < m_counter; i++){
-                if(m_items[i][0] == null){
+            for (int i = 0; i < m_counter; i++) {
+                if (m_items[i][0] == null) {
                     break;
                 }
                 m_numOfItems = ActualNumberOfItems(m_items);
@@ -55,17 +56,17 @@ public class Order {
                 outputFile.println("OrderDate:" + m_orderDate[i]);
 
                 outputFile.print("ProductId:");
-                for(int j = 0; j < m_numOfItems; j++){
+                for (int j = 0; j < m_numOfItems; j++) {
                     outputFile.print(m_items[i][j].getItemId());
-                    if(j != m_numOfItems - 1) {
+                    if (j != m_numOfItems - 1) {
                         outputFile.print(",");
                     }
                 }
 
                 outputFile.print("\nWeight:");
-                for(int j = 0; j < m_numOfItems; j++){
+                for (int j = 0; j < m_numOfItems; j++) {
                     outputFile.print(m_items[i][j].getWeight());
-                    if(j != m_numOfItems - 1) {
+                    if (j != m_numOfItems - 1) {
                         outputFile.print(",");
                     }
                 }
@@ -78,7 +79,7 @@ public class Order {
         }
     }
 
-    public void LoadOrder() throws IOException{
+    public void LoadOrder() throws IOException {
         String orderIdline;
         String orderDateline;
         String productIdline;
@@ -100,11 +101,11 @@ public class Order {
             Scanner inputFile = new Scanner(file);
             System.out.println("Loading Orders...");
 
-            if(file.length() == 0){
+            if (file.length() == 0) {
                 System.out.println("Orders.txt is empty");
             }
 
-            for(int i = 0; i < 100 && inputFile.hasNext(); i++){
+            for (int i = 0; i < 100 && inputFile.hasNext(); i++) {
                 orderIdline = inputFile.nextLine();
                 orderDateline = inputFile.nextLine();
                 productIdline = inputFile.nextLine();
@@ -123,17 +124,17 @@ public class Order {
                 orderDate = orderDatearr[1];
                 //Verify if productIdarr == weightarr, else error
                 //Cannot add it to item class
-                for(int j = 1; j < productIdarr.length; j++){
+                for (int j = 1; j < productIdarr.length; j++) {
                     productId[j - 1] = productIdarr[j];
                 }
 
-                for(int k = 1; k < weightarr.length; k++){
+                for (int k = 1; k < weightarr.length; k++) {
                     weight[k - 1] = Integer.parseInt(weightarr[k]);
                 }
 
                 m_orderId[i] = orderId;
                 m_orderDate[i] = orderDate;
-                for(int l = 0; l < productIdarr.length - 1; l++){
+                for (int l = 0; l < productIdarr.length - 1; l++) {
                     Item it = new Item(productId[l], weight[l]);
                     m_items[i][l] = it;
                 }
@@ -143,7 +144,7 @@ public class Order {
             System.out.println("Orders loaded");
             inputFile.close();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             if (!file.exists()) {
                 System.out.println("Orders.txt does not exist");
             } else {
@@ -152,7 +153,7 @@ public class Order {
         }
     }
 
-    public void ListOneOrder(){
+    public void ListOneOrder() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter OrderId(Eg.S10001): ");
         String orderId = sc.nextLine();
@@ -161,31 +162,31 @@ public class Order {
             String[] tempArr = orderId.split("S");
             m_numOfItemsCounter = Integer.parseInt(tempArr[1]) - 10001;
             m_numOfItems = ActualNumberOfItems(m_items);
-            for(int i = 0; i < m_counter - 1; i++){
+            for (int i = 0; i < m_counter - 1; i++) {
 
-                if(orderId.equals(m_orderId[i])){
+                if (orderId.equals(m_orderId[i])) {
                     foundOrderId = true;
                     TableOrder(i, m_numOfItems);
                     break;
                 }
             }
-            if(!foundOrderId){
+            if (!foundOrderId) {
                 System.out.println("OrderID not Found");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Invalid OrderID");
         }
     }
 
-    public void ListAllOrders(){
+    public void ListAllOrders() {
         m_numOfItemsCounter = 0;
-        for(int i = 0; i < m_counter - 1; i++){
+        for (int i = 0; i < m_counter - 1; i++) {
             m_numOfItems = ActualNumberOfItems(m_items);
             TableOrder(i, m_numOfItems);
         }
     }
 
-    private void TableOrder(int i, int numOfItems){
+    private void TableOrder(int i, int numOfItems) {
         double total = 0.0;
         String itemNo = "";
         String name = "";
@@ -193,28 +194,28 @@ public class Order {
         double per100 = 0.0;
         double price = 0.0;
 
-        System.out.printf("OID: %s\t\t\tDate: %s\n",m_orderId[i],m_orderDate[i]);
+        System.out.printf("OID: %s\t\t\tDate: %s\n", m_orderId[i], m_orderDate[i]);
         System.out.println("ItemNo#\t\tName\t\t\t\tWeight\t\tPer 100g\tPrice ($)");
         System.out.println("-----------------------------------------------------------------");
-        for(int j = 0; j < numOfItems; j++){
+        for (int j = 0; j < numOfItems; j++) {
             itemNo = m_items[i][j].getItemId();
             name = m_ctl.getProduct(itemNo).getName();
             weight = m_items[i][j].getWeight();
             per100 = m_ctl.getProduct(m_items[i][j].getItemId()).getPrice();
-            price = (weight/100.0) * per100;
+            price = (weight / 100.0) * per100;
             System.out.printf("%s001\t\t%s\t\t%d\t\t\t%.2f\t\t%.2f\n",
                     itemNo, name, weight, per100, price);
             total += price;
         }
         System.out.println("-----------------------------------------------------------------");
-        System.out.printf("TOTAL\t\t\t\t\t\t\t\t\t\t\t\t\t%.2f\n\n",total);
+        System.out.printf("TOTAL\t\t\t\t\t\t\t\t\t\t\t\t\t%.2f\n\n", total);
     }
 
-    private int ActualNumberOfItems(Item[][] itemarr){
+    private int ActualNumberOfItems(Item[][] itemarr) {
         int numOfItems = 0;
-        for(int i = m_numOfItemsCounter; i < itemarr.length; i++){
-            for(int j = 0; j < itemarr[i].length; j++){
-                if(itemarr[i][j] == null){
+        for (int i = m_numOfItemsCounter; i < itemarr.length; i++) {
+            for (int j = 0; j < itemarr[i].length; j++) {
+                if (itemarr[i][j] == null) {
                     numOfItems = j;
                     m_numOfItemsCounter++;
                     break;
@@ -226,7 +227,7 @@ public class Order {
         return numOfItems;
     }
 
-    private String generateValidOID(){
+    private String generateValidOID() {
         int num = 10000 + m_counter;
         String orderId;
 
@@ -236,7 +237,7 @@ public class Order {
         return orderId;
     }
 
-    private String enterDate(){
+    private String enterDate() {
         Scanner sc = new Scanner(System.in);
         String date;
 
@@ -244,7 +245,7 @@ public class Order {
             System.out.print("Enter Date(Eg.12/12/2022): ");
             date = sc.nextLine();
 
-            if(!isValidDate(date)){
+            if (!isValidDate(date)) {
                 System.out.println("Invalid Date");
             }
 
@@ -253,54 +254,54 @@ public class Order {
         return date;
     }
 
-    private boolean isValidDate(String date){
+    private boolean isValidDate(String date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
 
-        try{
+        try {
             dateFormat.parse(date.trim());
-        } catch (ParseException pe){
+        } catch (ParseException pe) {
             return false;
         }
         return true;
     }
 
-    private String enterProductId(){
+    private String enterProductId() {
         Scanner sc = new Scanner(System.in);
         String productId;
 
-        do{
+        do {
             System.out.print("Enter Product ID(Eg.WC): ");
             productId = sc.nextLine();
 
-            if(!isValidProductId(productId)){
+            if (!isValidProductId(productId)) {
                 System.out.println("Invalid ID");
             }
 
-        } while(!isValidProductId(productId));
+        } while (!isValidProductId(productId));
 
         return productId;
     }
 
-    private boolean isValidProductId(String id){
+    private boolean isValidProductId(String id) {
         try {
             m_ctl.getProduct(id);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return false;
         }
         return true;
     }
 
-    private int enterWeight(){
+    private int enterWeight() {
         Scanner sc = new Scanner(System.in);
         String inputWeight;
         int weight;
 
-        do{
+        do {
             System.out.print("Enter Weight(Eg.10): ");
             inputWeight = sc.nextLine();
 
-            if(!isValidWeight(inputWeight)){
+            if (!isValidWeight(inputWeight)) {
                 System.out.println("Invalid Weight");
             }
 
@@ -310,34 +311,33 @@ public class Order {
         return weight;
     }
 
-    private boolean isValidWeight(String input){
+    private boolean isValidWeight(String input) {
         int weight;
 
         try {
             weight = Integer.parseInt(input);
-            if(weight < 0){
+            if (weight < 0) {
                 return false;
             }
             return true;
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             return false;
         }
     }
 
-    private boolean enterMoreItems(){
+    private boolean enterMoreItems() {
         Scanner sc = new Scanner(System.in);
         String input = "N";
-        while (true){
+        while (true) {
             System.out.print("Do you want to enter more items(Y/N): ");
             input = sc.nextLine();
 
-            if(isValidMoreItems(input) == 0) {
+            if (isValidMoreItems(input) == 0) {
                 System.out.println(isValidMoreItems(input));
                 System.out.println("Invalid Answer");
                 continue;
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -350,16 +350,14 @@ public class Order {
         return true;
     }
 
-    private int isValidMoreItems(String input){
+    private int isValidMoreItems(String input) {
         input.toUpperCase();
 
-        if(input.equals("Y") || input.equals("YES")){
+        if (input.equals("Y") || input.equals("YES")) {
             return 1;
-        }
-        else if(input.equals("N") || input.equals("NO")){
+        } else if (input.equals("N") || input.equals("NO")) {
             return -1;
-        }
-        else {
+        } else {
             return 0;
         }
     }
