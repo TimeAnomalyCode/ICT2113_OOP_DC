@@ -203,7 +203,7 @@ public class Main {
         String product_Id;
 
         while (true) {
-            System.out.print("\nAdding Product\n");
+            System.out.print("\nRemoving Product\n");
             product_Id = enter_Product_Id();
             ctl.deleteProducts(product_Id);
             delete_More_Product();
