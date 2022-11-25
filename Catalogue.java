@@ -151,13 +151,13 @@ public class Catalogue {
 
                 m_products[i] = product;
             }
-            System.out.println("Products loaded\n");
+            System.out.println("Products loaded");
             inputFile.close();
         } catch (Exception e) {
             if (!file.exists()) {
-                System.out.println("Products.txt does not exist\n");
+                System.out.println("Products.txt does not exist");
             } else {
-                System.out.println("Failed to load Products file\n");
+                System.out.println("Failed to load Products file");
             }
         }
 

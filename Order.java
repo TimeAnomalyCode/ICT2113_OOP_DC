@@ -317,7 +317,7 @@ public class Order {
 
         try {
             weight = Integer.parseInt(input);
-            if (weight < 0) {
+            if (weight <= 0) {
                 return false;
             }
             return true;
@@ -335,7 +335,7 @@ public class Order {
             input = sc.nextLine();
 
             if (isValidMoreItems(input) == 0) {
-                System.out.println(isValidMoreItems(input));
+
                 System.out.println("Invalid Answer");
                 continue;
             } else {

@@ -36,7 +36,6 @@ public class Main {
     /* Main Options
     ----------------------------------------------------------------------------
      */
-
     // Select main options option 1-4
     public static void select_option(int option) throws IOException {
         switch (option) {
@@ -81,8 +80,9 @@ public class Main {
         while (true) {
             option = enter_option(order_options, 3);
 
-            if (option == 3)
+            if (option == 3) {
                 break;
+            }
             select_order_option(option);
         }
     }
@@ -113,8 +113,9 @@ public class Main {
         while (true) {
             option = enter_option(products_options, 5);
 
-            if (option == 5)
+            if (option == 5) {
                 break;
+            }
             select_products_option(option);
         }
     }
@@ -153,7 +154,6 @@ public class Main {
     /* other functions
     ----------------------------------------------------------------------------
      */
-
     // Display options available, promp user to input, validate return option
     public static int enter_option(String options, int num_options) {
 
@@ -184,7 +184,6 @@ public class Main {
 
         String product_Id, product_Name;
         double product_Price;
-
 
         while (true) {
             System.out.print("\nAdding Product\n");
@@ -219,7 +218,6 @@ public class Main {
         while (true) {
             System.out.print("\nSelect which product to modify using product Id\n");
             product_Id = enter_Product_Id();
-
 
             ctl.modifyProducts(product_Id);
             // Product Id input     
